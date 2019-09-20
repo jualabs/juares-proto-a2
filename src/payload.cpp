@@ -80,6 +80,22 @@ void PayloadConvert::addStatus(uint16_t voltage, uint64_t uptime, float cputemp,
 }
 
 void PayloadConvert::addGPS(gpsStatus_t value) {
+// function to be inserted in the lorawan server parser
+// fun(Fields, <<8#01:8, LAT:32/float, LNG:32/float, NSAT:8, HDOP:16, ALT:16>>) ->
+//     Fields#{lat => LAT, lng => LNG, nsat => NSAT, hdop => HDOP, alt => ALT};
+//    (Fields, <<8#80:8, VBAT:16>>) ->
+//     Fields#{vbat => VBAT};      
+// end.
+
+// function to be inserted in the lorawan server parser
+// fun
+//   decode_frame(#{port := PORT}, bin) -> decode_frame(PORT, bin);
+//   decode_frame(4, <<LAT:32/float, LNG:32/float, NSAT:8, HDOP:16, ALT:16>>) ->
+//     #{lat => LAT, lng => LNG, nsat => NSAT, hdop => HDOP, alt => ALT};
+//   decode_frame(8, <<VBAT:16>>) ->
+//     #{vbat => VBAT}
+// end.
+
 #if(HAS_GPS)
   buffer[cursor++] = (byte)((value.latitude & 0xFF000000) >> 24);
   buffer[cursor++] = (byte)((value.latitude & 0x00FF0000) >> 16);

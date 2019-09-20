@@ -12,7 +12,8 @@ esp_err_t err;
   ((GPS_DATA | ALARM_DATA | MEMS_DATA | COUNT_DATA | SENSOR1_DATA |             \
    SENSOR2_DATA | SENSOR3_DATA) & ~BATT_DATA)
 
-#define PAYLOADMASK GPS_DATA
+#define PAYLOADMASK ((GPS_DATA | BATT_DATA) & \
+                    ~(ALARM_DATA | MEMS_DATA | COUNT_DATA | SENSOR1_DATA | SENSOR2_DATA | SENSOR3_DATA))
 
 // populate cfg vars with factory settings
 void defaultConfig() {
