@@ -6,6 +6,11 @@
 #include "axp20x.h"
 #endif
 
+#ifdef MPU_6050
+#include "mpu6050.h"
+#endif
+
+
 int i2c_scan(void);
 void AXP192_init(void);
 
