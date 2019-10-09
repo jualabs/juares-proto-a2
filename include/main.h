@@ -21,4 +21,5 @@
 #include "lorawan.h"
 #endif
 #include "timekeeper.h"
+#include "mpuread.h"
 #endif

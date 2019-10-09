@@ -292,6 +292,36 @@ void setup() {
   }
 #endif
 
+// initialize MPU6050
+#if (HAS_MPU)
+  strcat_P(features, " MPU6050");
+  if (mpu_init()) {
+    ESP_LOGI(TAG, "Starting MPU Feed...");
+    xTaskCreatePinnedToCore(mpu_loop,  // task function
+                            "mpuloop", // name of task
+                            2048,      // stack size of task
+                            (void *)1, // parameter of the task
+                            1,         // priority of the task
+                            &MPUTask,  // task handle
+                            1);        // CPU core
+  }
+#endif
+
+// initialize SDCARD
+#if (HAS_SD)
+  strcat_P(features, " SDCARD");
+  if (sd_init()) {
+    ESP_LOGI(TAG, "Starting SD Card periodical writing...");
+    xTaskCreatePinnedToCore(sd_loop,  // task function
+                            "sdloop", // name of task
+                            2048,      // stack size of task
+                            (void *)1, // parameter of the task
+                            1,         // priority of the task
+                            &SDCardTask,  // task handle
+                            1);        // CPU core
+  }
+#endif
+
 // initialize sensors
 #if (HAS_SENSORS)
   strcat_P(features, " SENS");
