@@ -10,5 +10,5 @@
 .vscode/.browse.c_cpp.db*
 .clang_complete
 .gcc-flags.json
-src/loraconf.h
+# src/loraconf.h
 src/ota.conf
